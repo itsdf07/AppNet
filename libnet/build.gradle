@@ -17,8 +17,24 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+
+//    gson:2.8.6使用的是jdk1.8或者以上的版本，故不能用2.8.6，否则会报如下问题：
+//    Error:Error converting bytecode to dex:
+//    Cause: Dex cannot parse version 53 byte code.
+//    This is caused by library dependencies that have been compiled using Java 8 or above.
+//    If you are using the 'java' gradle plugin in a library submodule add
+//    targetCompatibility = '1.7'
+//    sourceCompatibility = '1.7'
+//    to that submodule's build.gradle file.
+    compile 'com.google.code.gson:gson:2.8.1'
+
+    compile 'com.squareup.okhttp3:okhttp:3.7.0'
 }
